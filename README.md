@@ -1,4 +1,4 @@
-# Go API client for ncentral
+# Go API client for cloudradial
 
 The CloudRadial API is currently in development. For more information visit <a href='https://radials.io/api' target='_blank'>https://radials.io/api</a>
 
@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import ncentral "github.com/ai-connor/cloudradial"
+import cloudradial "github.com/ai-connor/cloudradial"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -37,18 +37,18 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `ncentral.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `cloudradial.ContextServerIndex` of type `int`.
 
 ```go
-ctx := context.WithValue(context.Background(), ncentral.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), cloudradial.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `ncentral.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `cloudradial.ContextServerVariables` of type `map[string]string`.
 
 ```go
-ctx := context.WithValue(context.Background(), ncentral.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), cloudradial.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -59,13 +59,13 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `ncentral.ContextOperationServerIndices` and `ncentral.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `cloudradial.ContextOperationServerIndices` and `cloudradial.ContextOperationServerVariables` context maps.
 
 ```go
-ctx := context.WithValue(context.Background(), ncentral.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), cloudradial.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), ncentral.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), cloudradial.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -465,7 +465,7 @@ Authentication schemes defined for the API:
 Example
 
 ```go
-auth := context.WithValue(context.Background(), ncentral.ContextBasicAuth, ncentral.BasicAuth{
+auth := context.WithValue(context.Background(), cloudradial.ContextBasicAuth, cloudradial.BasicAuth{
 	UserName: "username",
 	Password: "password",
 })
